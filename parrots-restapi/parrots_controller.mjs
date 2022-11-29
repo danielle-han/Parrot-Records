@@ -17,16 +17,9 @@ function isDateValid(hatch_date) {
     return format.test(hatch_date);
 }
 
-// creates new parrot with properties provided in the body
-app.post('/parrots', 
-// validating properties:
-body('name').isLength({ min: 1 })),  // name is not empty (at least 1 char)
-body('weight').isInt({ min: 0 }),  // weight is not empty and not a negative number
-body('age_years').isInt({ min: 0 }),  // age years is not empty and not a negative number
-body('age_months').isInt({ min: 0, max: 12}),  // age months is not empty and btw 0 and 12 inclusive
-body('species').isLength({ min: 1 }),  // species is not empty (at least 1 char)
+// post route handler function
+function postParrotHandler(req, res) {
 
-(req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
@@ -44,7 +37,18 @@ body('species').isLength({ min: 1 }),  // species is not empty (at least 1 char)
         console.log(error);
         res.status(400).json({ Error: "Invalid request" });
     })
-};
+}
+
+// creates new parrot with properties provided in the body
+app.post('/parrots', 
+// validating properties:
+body('name').isLength({ min: 1 }),  // name is not empty (at least 1 char)
+body('weight').isInt({ min: 0 }),  // weight is not empty and not a negative number
+body('age_years').isInt({ min: 0 }),  // age years is not empty and not a negative number
+body('age_months').isInt({ min: 0, max: 11}),  // age months is not empty and btw 0 and 11 inclusive
+body('species').isLength({ min: 1 }),  // species is not empty (at least 1 char)
+
+postParrotHandler);
     
 // listen to connections on port
 app.listen(PORT, () => {

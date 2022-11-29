@@ -23,7 +23,7 @@ const parrotSchema = mongoose.Schema({
     weight: { type: Number, required: true },
     age_years: { type: Number, required: true },
     age_months: { type: Number, required: true },
-    hatch_date: { type: Date, required: true},
+    hatch_date: { type: String, required: true},
     species: { type: String, required: true}
 });
 
@@ -60,4 +60,4 @@ const deleteById = async (_id_) => {
     return result.deletedCount;
 };
 
-export {createParrot, findParrots, findParrotById, editParrot, deleteById}
+export { createParrot, findParrots, findParrotById, editParrot, deleteById }
