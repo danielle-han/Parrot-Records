@@ -48,6 +48,12 @@ const findParrotById = async (_id) => {
     return query.exec();
 }
 
+// find parrot(s) by name
+const findParrotByName = async (name) => {
+    const query = Parrot.find({name: name});
+    return query.exec();
+}
+
 // edit parrot
 const editParrot = async (_id, name, weight, age_years, age_months, hatch_date, species) => {
     const result = await Parrot.replaceOne({_id: _id}, {name: name, weight: weight, age_years: age_years, age_months: age_months, hatch_date: hatch_date, species: species});
@@ -55,9 +61,9 @@ const editParrot = async (_id, name, weight, age_years, age_months, hatch_date, 
 }
 
 // delete parrot by ID
-const deleteById = async (_id_) => {
+const deleteById = async (_id) => {
     const result = await Parrot.deleteOne({_id: _id});
     return result.deletedCount;
 };
 
-export { createParrot, findParrots, findParrotById, editParrot, deleteById }
+export { createParrot, findParrots, findParrotById, findParrotByName, editParrot, deleteById }
