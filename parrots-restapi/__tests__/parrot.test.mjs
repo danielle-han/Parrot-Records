@@ -1,6 +1,8 @@
 // import
 import mongoose from "mongoose";
 import * as parrots from '../parrots_model.mjs';
+import {app} from '../parrots_controller.mjs';
+import supertest from "supertest";
 
 describe("Parrot model", () => {
     it("create and save parrot successfully", async () => {
@@ -61,3 +63,17 @@ describe("Parrot model", () => {
 
 });
 
+describe("Test Handlers", () => {
+    it(' test post method and route handler', async () => {
+        const res = await supertest(app).post('/parrots').send({
+            name: "new_bird",
+            weight: "31",
+            age_years: "9",
+            age_months: "0",
+            hatch_date: "03-15-14",
+            species: "cockatoo"
+        });
+        expect(res.statusCode).toEqual(201);
+        expect(res.body).toHaveProperty('name');
+    });
+});
