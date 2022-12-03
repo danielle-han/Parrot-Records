@@ -10,10 +10,9 @@ const app = express();  // express application
 app.use(express.json());  // adds middleware to app that only parses json and only looks at requests 
                           // where content type header type matches type option
 
-// function to check that date is in correct format
-// TODO: also check that the dates are valid                          
+// function to check that date is in correct format                       
 function isDateValid(hatch_date) {
-    const format = /^\d\d-\d\d-\d\d\d\d$/;
+    const format = /^([0]?[1-9]|[1][0-2])[-]([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0-9]{4}|[0-9]{2})$/;
     return format.test(hatch_date);
 }
 
@@ -50,7 +49,11 @@ body('species').isLength({ min: 1 }),  // species is not empty (at least 1 char)
 
 postParrotHandler);
     
+
+
 // listen to connections on port
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 })
+
+export {app};
