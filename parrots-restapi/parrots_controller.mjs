@@ -16,8 +16,8 @@ function isDateValid(hatch_date) {
     return format.test(hatch_date);
 }
 
-// post route handler function
-function postParrotHandler(req, res) {
+// validation function - return message if validation fails
+function validate(req, res) {
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -27,7 +27,13 @@ function postParrotHandler(req, res) {
     if(!isDateValid(req.body.hatch_date)) {
         return res.status(400).json({ Error: "Hatch date is in an invalid format" });
     }
-    
+}
+
+// post route handler function
+function postParrotHandler(req, res) {
+
+    validate(req, res);
+
     parrots.createParrot(req.body.name, req.body.weight, req.body.age_years, req.body.age_months, req.body.hatch_date, req.body.species)
     .then(parrot => {
         res.status(201).json(parrot);
@@ -38,6 +44,26 @@ function postParrotHandler(req, res) {
     })
 }
 
+// put route handler function
+function putParrotHandler(req, res) {
+
+    validate(req, res);
+
+    parrots.editParrot(req.params._id, req.body.name, req.body.weight, req.body.age_years, req.body.age_months, req.body.hatch_date, req.body.species)
+    .then(numUpdated => {
+        if (numUpdated === 1) {
+            res.json({_id: req.params._id, name: req.body.name, weight: req.body.weight, age_years: req.body.age_years, age_months: req.body.age_months, hatch_date: req.body.hatch_date, species: req.body.species});
+        } else {
+            res.status(404).json({ Error: "Resource not found"});
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(400).json({ Error: "Request failed" });
+    })
+}
+
+
 // creates new parrot with properties provided in the body
 app.post('/parrots', 
 // validating properties:
@@ -46,7 +72,6 @@ body('weight').isInt({ min: 0 }),  // weight is not empty and not a negative num
 body('age_years').isInt({ min: 0 }),  // age years is not empty and not a negative number
 body('age_months').isInt({ min: 0, max: 11}),  // age months is not empty and btw 0 and 11 inclusive
 body('species').isLength({ min: 1 }),  // species is not empty (at least 1 char)
-
 postParrotHandler);
     
 // retrieve all parrots in database
@@ -81,6 +106,14 @@ app.get('/parrots/:_id', (req, res) => {
 // retrieve parrot by name
 
 // update parrot with specified ID: set its properties to values provided in body
+app.put('/parrots/:_id', 
+// validating properties: same as POST
+body('name').isLength({ min: 1 }),  
+body('weight').isInt({ min: 0 }), 
+body('age_years').isInt({ min: 0 }),  
+body('age_months').isInt({ min: 0, max: 11}),  
+body('species').isLength({ min: 1 }),  
+putParrotHandler);
 
 // delete parrot with specified ID
 app.delete('/parrots/:_id', (req, res) => {
