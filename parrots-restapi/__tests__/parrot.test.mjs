@@ -92,4 +92,19 @@ describe("Test Handlers", () => {
         expect(JSON.stringify(res.body._id)).toEqual(JSON.stringify(parrot_id));
     });
 
+    it('DELETE method: delete parrot by ID', async () => {
+        const parrot = await parrots.findParrotByName("test_parrot");
+        const length = parrot.length;
+        let countDeleted = 0;
+        let deleted = 0;
+        for (let i = 0; i < parrot.length; i++) {
+            let res = await supertest(app).delete('/parrots/' + parrot[i]._id);
+            if (res.statusCode === 204) {
+                deleted = 1;
+            }
+            countDeleted += deleted;
+        } 
+        expect(countDeleted).toBe(length);
+    });
+
 });
