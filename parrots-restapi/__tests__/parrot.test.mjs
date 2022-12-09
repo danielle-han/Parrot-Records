@@ -92,6 +92,23 @@ describe("Test Handlers", () => {
         expect(JSON.stringify(res.body._id)).toEqual(JSON.stringify(parrot_id));
     });
 
+    it('PUT method: edit parrot with specified ID', async () => {
+        const parrot = await parrots.createParrot("test_parrot", 28, 9, 7, "12-01-01", "african grey");
+        const parrot_id = parrot._id;
+        const res = await supertest(app).put('/parrots/' + parrot_id).send({
+            name: "test_parrot",
+            weight: "28",
+            age_years: "9",
+            age_months: "7",
+            hatch_date: "12-01-01",
+            species: "cockatoo"
+        });
+        expect(res.statusCode).toEqual(200);
+        expect(JSON.stringify(res.body._id)).toEqual(JSON.stringify(parrot_id));
+        expect(JSON.stringify(res.body.name)).toEqual(JSON.stringify(parrot.name));
+        expect(JSON.stringify(res.body.species)).toEqual(JSON.stringify("cockatoo"));
+    });
+
     it('DELETE method: delete parrot by ID', async () => {
         const parrot = await parrots.findParrotByName("test_parrot");
         const length = parrot.length;
