@@ -49,6 +49,40 @@ body('species').isLength({ min: 1 }),  // species is not empty (at least 1 char)
 
 postParrotHandler);
     
+// retrieve all parrots in database
+app.get('/parrots', (req, res) => {
+    parrots.findParrots()
+    .then(parrots => {
+        res.json(parrots);
+    })
+    .catch(error => {
+        console.error(error);
+        res.status(400).json({ Error: "Request failed"});
+    })
+});
+
+// retrieve parrot by ID
+app.get('/parrots/:_id', (req, res) => {
+    const parrotId = req.params._id;
+    parrots.findParrotById(parrotId)
+    .then(parrot => {
+        if (parrot !== null) {
+            res.json(parrot);
+        } else {
+            res.status(404).send({ Error: "Resource not found" });
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(400).json({ Error: "Request failed" });
+    })
+});
+
+// retrieve parrot by name
+
+// update parrot with specified ID: set its properties to values provided in body
+
+// delete parrot with specified ID
 
 
 // listen to connections on port
