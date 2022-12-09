@@ -64,9 +64,9 @@ describe("Parrot model", () => {
 });
 
 describe("Test Handlers", () => {
-    it(' test post method and route handler', async () => {
+    it('POST method: create new parrot', async () => {
         const res = await supertest(app).post('/parrots').send({
-            name: "new_bird",
+            name: "test_parrot",
             weight: "31",
             age_years: "9",
             age_months: "0",
@@ -76,4 +76,20 @@ describe("Test Handlers", () => {
         expect(res.statusCode).toEqual(201);
         expect(res.body).toHaveProperty('name');
     });
+
+    it('GET method: return all parrots', async () => {
+        const res = await supertest(app).get('/parrots');
+        console.log(res.body);
+        expect(res.statusCode).toEqual(200);
+        // expect to have all parrots returned
+    });
+
+    it('GET method: return parrot with specified ID', async () => {
+        const parrot = await parrots.createParrot("test_parrot", 28, 9, 7, "12-01-01", "african grey");
+        const parrot_id = parrot._id;
+        const res = await supertest(app).get('/parrots/' + parrot_id);
+        expect(res.statusCode).toEqual(200);
+        expect(JSON.stringify(res.body._id)).toEqual(JSON.stringify(parrot_id));
+    });
+
 });
