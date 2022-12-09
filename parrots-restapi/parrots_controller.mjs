@@ -21,11 +21,11 @@ function postParrotHandler(req, res) {
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({ errors: errors.array() });
         // TODO: change -> specific messages for different errors
     }
     if(!isDateValid(req.body.hatch_date)) {
-        return res.status(400).json({ Error: "Hatch date is in an invalid format"});
+        return res.status(400).json({ Error: "Hatch date is in an invalid format" });
     }
     
     parrots.createParrot(req.body.name, req.body.weight, req.body.age_years, req.body.age_months, req.body.hatch_date, req.body.species)
@@ -57,7 +57,7 @@ app.get('/parrots', (req, res) => {
     })
     .catch(error => {
         console.error(error);
-        res.status(400).json({ Error: "Request failed"});
+        res.status(400).json({ Error: "Request failed" });
     })
 });
 
@@ -83,7 +83,20 @@ app.get('/parrots/:_id', (req, res) => {
 // update parrot with specified ID: set its properties to values provided in body
 
 // delete parrot with specified ID
-
+app.delete('/parrots/:_id', (req, res) => {
+    parrots.deleteById(req.params._id)
+        .then(deletedCount => {
+            if(deletedCount === 1) {
+                res.status(204).send();
+            } else {
+                res.status(404).json({ Error: "Resource not found" });
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            res.send({ Error: "Request failed" });
+        })
+});
 
 // listen to connections on port
 app.listen(PORT, () => {
