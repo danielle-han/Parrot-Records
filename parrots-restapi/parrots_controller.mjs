@@ -103,7 +103,7 @@ app.get('/parrots/:_id', (req, res) => {
     })
 });
 
-// retrieve parrot by name
+// TODO: retrieve parrot by name - change find by id -> parrots/search/ <- filter by name/id/species(?)
 
 // update parrot with specified ID: set its properties to values provided in body
 app.put('/parrots/:_id', 
