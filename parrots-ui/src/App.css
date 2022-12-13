@@ -7,6 +7,7 @@ body {
 .App {
   min-height: 100vh;
   padding-top: 50px;
+  box-sizing: border-box;
   text-align: center;
   display: flex;
   flex-direction: column;
