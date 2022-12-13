@@ -30,37 +30,48 @@ export const AddParrotPage = () => {
     };
 
     return (
-        <div>
+        <div class="form">
             <h1>Add a new parrot</h1>
+            <label for="name">Parrot Name:</label>
             <input
                 type="text"
-                placeholder="Enter your parrot's name here"
+                id="name"
+                placeholder="Kiwi"
                 value={name}
                 onChange={e => setName(e.target.value)} />
+            <label for="weight">Weight in Grams:</label>
             <input
                 type="number"
+                id="weight"
                 value={weight}
-                placeholder="Enter your parrot's weight here (in grams)"
+                placeholder="30"
                 onChange={e => setWeight(e.target.value)} />
-            <p> Enter parrot's age: </p>
+            <label for="age_years">Years:</label>
             <input
                 type="number"
+                id="age_years"
                 value={age_years}
-                placeholder="Years"
+                placeholder="8"
                 onChange={e => setAgeYears(e.target.value)} />
+            <label for="age_months">Months:</label>
             <input
                 type="number"
+                id="age_months"
                 value={age_months}
-                placeholder="Months"
+                placeholder="11"
                 onChange={e => setAgeMonths(e.target.value)} />
+            <label for="hatch_date">Hatch Date:</label>
             <input
                 type="text"
-                placeholder="Enter hatch-date here in format MM-DD-YY or MM-DD-YYYY"
+                id="hatch_date"
+                placeholder="MM-DD-YY"
                 value={hatch_date}
                 onChange={e => setHatchDate(e.target.value)} />
+            <label for="species">Parrot Species:</label>
             <input
                 type="text"
-                placeholder="Enter species of parrot here"
+                id="species"
+                placeholder="parrotlet"
                 value={species}
                 onChange={e => setSpecies(e.target.value)} />
             <button

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import ParrotList from '../components/ParrotList';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -41,7 +40,6 @@ function HomePage({setParrotToEdit}) {
         <>
             <h2>Parrots</h2>
             <ParrotList parrots={parrots} onDelete={onDelete} onEdit={onEdit}></ParrotList>
-            <Link to="/add-parrot">Add new parrot</Link>
         </>
     );
 }

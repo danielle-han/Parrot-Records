@@ -6,9 +6,9 @@ import '../App.css';
 // two links to the HomePage displaying parrot records and a link to adding a new Parrot
 function Navigation() {
     return (
-        <nav>
-            <Link to='/'>Home</Link>
-            <Link to='/add-parrot'>Add New Parrot</Link>
+        <nav className='navigation'>
+            <Link to='/' className='App-link'>Home</Link>
+            <Link to='/add-parrot' className='App-link'>Add New Parrot</Link>
         </nav>
     );
 }

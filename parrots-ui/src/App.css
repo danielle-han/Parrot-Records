@@ -1,38 +1,95 @@
+body {
+  background-color: #FCF7F8;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #5B616A;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
+  padding-top: 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.App-header { 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #5B616A;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #275DAD;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navigation {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 10px;
+  background-color: #CED3DC;
+}
+
+.navigation .App-link {
+ margin: 0 50px; 
+}
+
+tr th {
+  border: 1px solid #ABA9C3;
+  padding: 12px;
+  color: #5B616A;
+  background-color: #CED3DC;
+}
+
+tr td {
+  border: 1px solid #ABA9C3;
+  padding: 8px;
+  color: #5B616A;
+}
+
+.icon:hover {
+  font-size: 105%;
+  cursor: pointer;
+}
+
+.icon:active {
+  animation-name: pressedIcon;
+  animation-duration: .1s;
+}
+
+.form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.form label {
+  text-align: left;
+  padding: 8px 0 5px 0;
+}
+.form input {
+  padding: 5px 2px;
+}
+.form button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 5px 0;
+  align-self: center;
+}
+
+footer {
+  padding: 10px 0;
+  background-color: #CED3DC;
+}
+
+@keyframes pressedIcon {
+  from {font-size: 105%;}
+  to {font-size: 80%;}
 }

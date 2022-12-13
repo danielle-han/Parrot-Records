@@ -11,9 +11,8 @@ function ParrotList({ parrots, onDelete, onEdit }) {
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Weight</th>
-                    <th>Age (years)</th>
-                    <th>Age (months)</th>
+                    <th>Weight (Grams)</th>
+                    <th>Age</th>
                     <th>Hatch Date</th>
                     <th>Species</th>
                     <th>Edit</th>
